@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clientes - Panel Administrador</title>
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/ventas.css" />
+    <link rel="stylesheet" href="/css/administradores.css" />
+  </head>
+  <body>
+    <div class="header">
+      <h1>Panel de Administración - Clientes</h1>
+      <div class="actions">
+        <button class="btn-theme" title="Cambiar tema">🌙</button>
+        <button class="btn btn-secondary volver-dashboard">Volver</button>
+      </div>
+    </div>
+
+    <div class="container">
+      <div id="alert" class="alert"></div>
+
+      <div id="loading" class="loading">Cargando clientes...</div>
+
+      <div id="tableContainer" style="display: none">
+        <table id="clientesTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Fecha creacion</th>
+            </tr>
+          </thead>
+          <tbody id="clientesBody"></tbody>
+        </table>
+        <div id="paginacion" class="paginacion"></div>
+      </div>
+
+      <div id="emptyState" class="empty-state" style="display: none">
+        No hay ningun cliente para mostrar
+      </div>
+    </div>
+    <script src="/js/tema.js"></script>
+    <script type="module" src="/js/clientes.js"></script>
+  </body>
+</html>

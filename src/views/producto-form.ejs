@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= modo === 'editar' ? 'Editar' : 'Crear' %> Producto - Panel Administrador</title>
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/productos.css" />
+  </head>
+  <body>
+    <div class="header">
+      <h1>Panel de Administración - <%= modo === 'editar' ? 'Editar' : 'Crear' %> Producto</h1>
+      <div class="actions">
+        <button class="btn-theme" title="Cambiar tema">🌙</button>
+        <a href="/api/admin/productos-view" class="btn btn-secondary">← Volver a Productos</a>
+      </div>
+    </div>
+    <div class="container">
+      <div id="alert" class="alert"></div>
+      <div class="container__submit-product">
+        <form id="productoForm" data-modo="<%= modo %>" data-id="<%= producto ? producto.id : '' %>">
+          <div>
+            <label for="titulo">Título del Producto: <span style="color: red;">*</span></label>
+            <input
+              type="text"
+              id="titulo"
+              name="titulo"
+              required
+              placeholder="Ej: Remera Negra XL"
+              value="<%= producto ? producto.titulo : '' %>"
+            />
+          </div>
+
+          <div>
+            <label for="precio">Precio: <span style="color: red;">*</span></label>
+            <input
+              type="number"
+              id="precio"
+              name="precio"
+              step="0.01"
+              required
+              placeholder="69999"
+              min="0"
+              value="<%= producto ? producto.precio : '' %>"
+            />
+          </div>
+
+          <div>
+            <label for="stock">Stock: <span style="color: red;">*</span></label>
+            <input 
+              type="number" 
+              id="stock" 
+              name="stock" 
+              required 
+              placeholder="20" 
+              min="0"
+              value="<%= producto ? producto.stock : '' %>"
+            />
+          </div>
+
+          <div>
+            <label for="id_tipo">Tipo de Producto: <span style="color: red;">*</span></label>
+            <select name="id_tipo" id="id_tipo" required>
+              <% tipos.forEach(tipo => { %>
+                <option value="<%= tipo.id %>" <%= producto && producto.id_tipo === tipo.id ? 'selected' : '' %>>
+                  <%= tipo.nombre %>
+                </option>
+              <% }); %>
+            </select>
+          </div>
+
+          <div>
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" name="descripcion" rows="4" placeholder="Descripción del producto..."><%= producto ? (producto.descripcion || '') : '' %></textarea>
+          </div>
+
+          <p id="mensajeError" style="color: red; display: none"></p>
+
+          <button type="submit" class="btn btn-primary">
+            <%= modo === 'editar' ? 'Actualizar Producto' : 'Crear Producto' %>
+          </button>
+        </form>
+        
+        <div class="container__img-product">
+          <% if (producto && producto.url_image) { %>
+            <p><strong>Imagen actual:</strong></p>
+            <img
+              src="<%= producto.url_image %>"
+              alt="Imagen de <%= producto.titulo %>"
+              id="imgPreview"
+              data-id="<%= producto.id %>"
+            />
+          <% } else { %>
+            <p><strong>Vista previa:</strong></p>
+            <img
+              src="https://blocks.astratic.com/img/general-img-landscape.png"
+              alt="Sin imagen"
+              id="imgPreview"
+              data-id=""
+            />
+          <% } %>
+          
+          <button type="button" class="btn btn-secondary btn-upload-img" <%= modo === 'crear' ? 'disabled' : '' %>>
+            <%= modo === 'editar' ? (producto && producto.url_image ? 'Cambiar imagen' : 'Subir imagen') : 'Subir imagen (guarde primero)' %>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="/js/tema.js"></script>
+    <script type="module" src="/js/productoForm.js"></script>
+  </body>
+</html>

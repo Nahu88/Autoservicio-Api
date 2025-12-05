@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Panel Administrador</title>
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/dashboard.css" />
+  </head>
+  <body>
+    <button class="btn-theme" title="Cambiar tema">🌙</button>
+    <div class="header">
+      <div class="container__header">
+        <h1>Panel de Administración - Productos</h1>
+        <div class="container__badges">
+          <div class="admin-info">
+          <div class="admin-avatar">
+            <span id="admin-inicial">A</span>
+          </div>
+          <div>
+            <div style="font-weight: 600; font-size: 1.1rem" id="admin-nombre">Admin</div>
+            <div style="font-size: 0.9rem; opacity: 0.9" id="admin-email">
+              admin@autoservicio.com
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-secondary" id="logout-btn">➜]</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div id="alert" class="alert"></div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">💰</div>
+          <div class="stat-value" id="total-ventas">$<%= total_ventas_mes.cantidad %></div>
+          <div class="stat-label">Ventas del Mes</div>
+          <div
+            class="stat-change <%= total_ventas_mes.tipo === 'aumento' ? 'positive' : 'negative' %>"
+          >
+            <%= total_ventas_mes.tipo === 'aumento' ? '↑' : '↓' %> <%= total_ventas_mes.variacion %>
+            vs mes anterior
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">📦</div>
+          <div class="stat-value" id="total-productos"><%= productos.cantidadProductos %></div>
+          <div class="stat-label">Productos Activos</div>
+          <div class="stat-change">
+            <%= productos.cantidadBuzos %> buzos, <%= productos.cantidadRemeras %> remeras
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">🛒</div>
+          <div class="stat-value" id="total-ordenes"><%= cantidad_ventas_mes.cantidad %></div>
+          <div class="stat-label">Órdenes este Mes</div>
+          <div
+            class="stat-change <%= cantidad_ventas_mes.tipo === 'aumento' ? 'positive' : 'negative' %>"
+          >
+            <%= cantidad_ventas_mes.tipo === 'aumento' ? '↑' : '↓' %> <%=
+            cantidad_ventas_mes.variacion %> vs mes anterior
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon">👥</div>
+          <div class="stat-value" id="total-clientes"><%= clientes.total %></div>
+          <div class="stat-label">Clientes Registrados</div>
+          <div
+            class="stat-change <%= clientes.cant_clientes_nuevos > 0 ? 'positive' : 'negative' %>"
+          >
+            <%= clientes.cant_clientes_nuevos > 0 ? '↑' : '↓' %> <%= clientes.cant_clientes_nuevos
+            %> nuevos esta semana
+          </div>
+        </div>
+      </div>
+
+      <div class="actions-grid">
+        <a href="/api/admin/productos-view" class="action-card productos">
+          <div class="action-icon">📦</div>
+          <h3>Gestionar Productos</h3>
+          <p>Agregar, editar o eliminar productos del catálogo</p>
+        </a>
+
+        <a href="/api/admin/ventas-view" class="action-card ventas">
+          <div class="action-icon">💳</div>
+          <h3>Ver Ventas</h3>
+          <p>Consultar historial de ventas y reportes</p>
+        </a>
+
+        <a href="/api/admin/administradores-view" class="action-card usuarios">
+          <div class="action-icon">👨‍💼</div>
+          <h3>Administradores</h3>
+          <p>Gestionar usuarios administradores del sistema</p>
+        </a>
+
+        <a href="/api/admin/clientes-view" class="action-card clientes">
+          <div class="action-icon">👥</div>
+          <h3>Clientes</h3>
+          <p>Ver base de clientes</p>
+        </a>
+      </div>
+
+      <div class="chart-section">
+        <h3>📊 Ventas de los últimos 7 días</h3>
+        <div class="chart-container">
+          <div class="bar-chart" id="ventas-chart">
+          </div>
+        </div>
+      </div>
+      <script src="/js/tema.js"></script>
+      <script type="module" src="/js/dashboard.js"></script>
+  </body>
+</html>

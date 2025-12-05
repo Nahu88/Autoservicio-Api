@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Administradores - Panel Administrador</title>
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/ventas.css" />
+    <link rel="stylesheet" href="/css/administradores.css" />
+  </head>
+  <body>
+    <div class="header">
+      <h1>Panel de Administración - Administradores</h1>
+      <div class="actions">
+        <button class="btn-theme" title="Cambiar tema">🌙</button>
+        <button class="btn btn-success new-admin">Crear Administrador</button>
+        <button class="btn btn-secondary volver-dashboard">Volver</button>
+      </div>
+    </div>
+
+    <div class="container">
+      <div id="alert" class="alert"></div>
+
+      <div id="loading" class="loading">Cargando administradores...</div>
+
+      <div id="tableContainer" style="display: none">
+        <table id="administradoresTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Fecha creación</th>
+              <th>Última modificación</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="administradoresBody"></tbody>
+        </table>
+        <div id="paginacion" class="paginacion"></div>
+      </div>
+
+      <div id="emptyState" class="empty-state" style="display: none">
+        No hay ningun administrador para mostrar
+      </div>
+    </div>
+
+    <div id="modalCreacion" class="modal">
+      <form class="modal-content modal-lg" id="formCreacion">
+        <div class="modal-header">
+          <h2>Crear nuevo administrador</h2>
+        </div>
+        <div class="modal-body">
+          <div id="creacionLoading" class="loading">Cargando...</div>
+          <div id="creacionContent" style="display: none">
+            <div class="container">
+              <div class="form-group">
+                <label for="creacionNombre">Nombre:</label>
+                <input type="text" id="creacionNombre" name="nombre" required />
+                <label for="creacionEmail">Email:</label>
+                <input type="email" id="creacionEmail" name="email" required />
+                <label for="creacionPassword">Contraseña:</label>
+                <input type="password" id="creacionPassword" name="password" required />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-close-modal btn-secondary">Cerrar</button>
+          <button class="btn btn-close-modal btn-primary" type="submit">Guardar</button>
+        </div>
+      </form>
+    </div>
+
+    <div id="modalEdicion" class="modal">
+      <form class="modal-content modal-lg" id="formEdicion">
+        <div class="modal-header">
+          <h2>Editar administrador #<span id="edicionVentaId"></span></h2>
+        </div>
+        <div class="modal-body">
+          <div id="edicionLoading" class="loading">Cargando...</div>
+          <div id="edicionContent" style="display: none">
+            <div class="detalle-grid">
+              <div class="form-group">
+                <label for="edicionNombre">Nombre:</label>
+                <input type="text" id="edicionNombre" name="nombre" />
+                <label for="edicionPassword">Contraseña:</label>
+                <input type="password" id="edicionPassword" name="password" required/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-close-modal btn-secondary">Cerrar</button>
+          <button class="btn btn-close-modal btn-primary" type="submit">Actualizar</button>
+        </div>
+      </form>
+    </div>
+    <!-- Modal de confirmación -->
+    <div id="modalConfirm" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="modalTitle">Confirmar acción</h2>
+        </div>
+        <div class="modal-body">
+          <p id="modalMessage"></p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" onclick="cerrarModal()">Cancelar</button>
+          <button class="btn btn-primary" id="btnConfirmar">Confirmar</button>
+        </div>
+      </div>
+    </div>
+    <script src="/js/tema.js"></script>
+    <script type="module" src="/js/administradores.js"></script>
+  </body>
+</html>

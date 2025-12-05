@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ventas - Panel Administrador</title>
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/ventas.css" />
+  </head>
+  <body>
+    <div class="header">
+      <h1>Panel de Administración - Ventas</h1>
+      <div class="actions">
+        <button class="btn-theme" title="Cambiar tema">🌙</button>
+        <button class="btn btn-success generar-reporte">Exportar Reporte</button>
+        <button class="btn btn-secondary volver-dashboard">Volver</button>
+      </div>
+    </div>
+
+    <div class="container">
+      <div id="alert" class="alert"></div>
+
+      <div class="filters">
+        <label>Filtrar por estado:</label>
+        <select id="filtroEstado">
+          <option value="">Todos</option>
+          <option value="pendiente">Pendientes</option>
+          <option value="procesando">Procesando</option>
+          <option value="completado">Completado</option>
+          <option value="cancelado">Cancelado</option>
+        </select>
+      </div>
+
+      <div id="loading" class="loading">Cargando ventas...</div>
+
+      <div id="tableContainer" style="display: none">
+        <table id="productosTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Cliente</th>
+              <th>Metodo de Pago</th>
+              <th>Monto</th>
+              <th>Fecha</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="productosBody"></tbody>
+        </table>
+        <div id="paginacion" class="paginacion"></div>
+      </div>
+
+      <div id="emptyState" class="empty-state" style="display: none">
+        No hay ventas para mostrar
+      </div>
+    </div>
+
+    <div class="resumen">
+      <p><strong>Total de ventas:</strong> <%= ventasPaginated.ventas.length %></p>
+      <p>
+        <strong>Monto total:</strong> $<%= ventasPaginated.ventas.reduce((sum, v) => sum +
+        Number(v.total), 0).toFixed(2) %>
+      </p>
+    </div>
+    <div id="modalDetalles" class="modal">
+      <div class="modal-content modal-lg">
+        <div class="modal-header">
+          <h2>Detalles de Venta #<span id="detalleVentaId"></span></h2>
+        </div>
+        <div class="modal-body">
+          <div id="detallesLoading" class="loading">Cargando...</div>
+          <div id="detallesContent" style="display: none">
+            <div class="detalle-grid">
+              <div class="detalle-item">
+                <span class="detalle-label">Cliente:</span>
+                <span id="detalleCliente"></span>
+              </div>
+              <div class="detalle-item">
+                <span class="detalle-label">Total:</span>
+                <span id="detalleTotal"></span>
+              </div>
+            </div>
+            <table class="table-detalles">
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>Cantidad</th>
+                  <th>Precio</th>
+                  <th>Subtotal</th>
+                </tr>
+              </thead>
+              <tbody id="detalleItems"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-close-modal btn-secondary">Cerrar</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="modalEdicion" class="modal">
+      <form class="modal-content modal-lg" id="formEdicion">
+        <div class="modal-header">
+          <h2>Editar estado de Venta #<span id="edicionVentaId"></span></h2>
+        </div>
+        <div class="modal-body">
+          <div id="edicionLoading" class="loading">Cargando...</div>
+          <div id="edicionContent" style="display: none">
+            <div class="detalle-grid">
+              <div class="form-group">
+                <label for="edicionEstado">Estado:</label>
+                <select id="edicionEstado" name="estado" required>
+                  <option value="pendiente">Pendiente</option>
+                  <option value="procesando">Procesando</option>
+                  <option value="completado">Completado</option>
+                  <option value="cancelado">Cancelado</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-close-modal btn-secondary">Cerrar</button>
+          <button class="btn btn-close-modal btn-primary" type="submit">Guardar</button>
+        </div>
+      </form>
+    </div>
+    <!-- Modal de confirmación -->
+    <div id="modalConfirm" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="modalTitle">Confirmar acción</h2>
+        </div>
+        <div class="modal-body">
+          <p id="modalMessage"></p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" onclick="cerrarModal()">Cancelar</button>
+          <button class="btn btn-primary" id="btnConfirmar">Confirmar</button>
+        </div>
+      </div>
+    </div>
+    <script src="/js/tema.js"></script>
+    <script type="module" src="/js/ventas.js"></script>
+  </body>
+</html>

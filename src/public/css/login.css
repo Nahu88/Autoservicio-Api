@@ -1,0 +1,82 @@
+/* Estilos específicos para la página de login */
+
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.login-container {
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    position: relative;
+}
+
+.login-container .btn-theme {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.login-header h1 {
+    color: var(--text-primary);
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.login-header p {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.btn-login {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.btn-acceso-rapido {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    border-radius: 8px;
+    background: #f3f4f6;
+    border: 1px solid #d1d5db !important;
+    color: #6b7280;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-acceso-rapido:hover {
+    background: #e5e7eb;
+    color: #374151;
+    border-color: #9ca3af !important;
+}
+
+[data-theme="dark"] .btn-acceso-rapido {
+    background: #374151;
+    border-color: #4b5563 !important;
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .btn-acceso-rapido:hover {
+    background: #4b5563;
+    color: #e5e7eb;
+}
