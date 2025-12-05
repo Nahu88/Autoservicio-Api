@@ -1,3 +1,5 @@
+name: autoservicio-ropa
+
 services:
   mysql_db:
     image: mysql:latest
