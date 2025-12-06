@@ -13,6 +13,7 @@ import carritoRoutes from './routes/carritoRoutes.js';
 import carritoItemsRoutes from './routes/carritoItemsRoutes.js';
 import ventaRoutes from './routes/ventaRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
+import seedRoutes from './routes/seedRoutes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -37,5 +38,6 @@ app.use('/api/carrito-items', carritoItemsRoutes);
 app.use('/api/ventas', ventaRoutes);
 
 app.use('/api/admin', adminRoutes);
+app.use('/api/seed', seedRoutes);
 
 export default app;
